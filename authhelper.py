@@ -10,6 +10,9 @@ class InvalidTokenError(Exception):
 class MissingTokenError(Exception):
     pass
 
+class DecodingError(Exception):
+    pass
+
 def validate_request(url_request):
     # Get token from headers
     token = url_request.headers.get('token')
@@ -17,23 +20,23 @@ def validate_request(url_request):
         raise MissingTokenError("Missing token")
 
     # Validate token
-    if is_valid_token(token):
-        return
-    else:
-        raise InvalidTokenError("Invalid token")
+    try:
+        validate_token(token)
+    except Exception as e:
+        raise e
 
-def is_valid_token(token):
+
+def validate_token(token):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms='HS256')
         token_date = datetime.datetime.fromtimestamp(payload['exp'])
         if token_date < datetime.datetime.utcnow():
             print("Token expired")
-            return False
+            raise InvalidTokenError("Token expired")
         print("valid token received: " + str(token_date))
-        return True
+        return
     except:
-        print("Decoding token failed")
-        return False
+        raise DecodingError("Decoding token failed")
 
 # Authorized users (really good database)
 authorized_users = dict({'admin': 'password123'})
