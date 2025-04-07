@@ -38,8 +38,8 @@ def validate_token(token):
     except:
         raise DecodingError("Decoding token failed")
 
-# Authorized users (really good database)
-authorized_users = dict({'admin': 'password123'})
+# Authorized users (just a really good database)
+authorized_users = dict({'admin':'password123','bill':'virus'})
 
 # Secret key to encode the JWT token
 SECRET_KEY = 'honda_access_virus'
