@@ -8,6 +8,13 @@ class User:
     img_url: str
 
 @dataclass
+class CellContent:
+    id: int
+    title: str
+    left: str
+    right: str
+
+@dataclass
 class RentalProperty:
     id: int
     nightly_price: int
@@ -16,6 +23,9 @@ class RentalProperty:
 
 def create_random_user():
     return User(randrange(1_000_000), "Bill", "someCoolUrl")
+
+def create_random_cell(num):
+    return CellContent(num, str(num) , "lefty", "righty")
 
 def create_random_rental():
     rand_num = randrange(100) + 200

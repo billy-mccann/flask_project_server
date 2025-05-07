@@ -2,7 +2,7 @@ from random import randrange
 from flask import Flask, request, jsonify
 from dataclasses import asdict
 from authhelper import MissingTokenError, DecodingError, InvalidTokenError
-from user import create_random_user, create_random_rental
+from user import create_random_user, create_random_rental, create_random_cell
 import authhelper as ah
 
 app = Flask(__name__)
@@ -33,6 +33,14 @@ def users():
     for i in range(num):
         user_list.append(asdict(create_random_user()))
     return user_list
+
+@app.route("/cells")
+def cells():
+    num = randrange(100)
+    cellList = []
+    for i in range(num):
+        cellList.append(asdict(create_random_cell(i)))
+    return cellList
 
 @app.route("/rentals")
 def rentals():
