@@ -77,3 +77,6 @@ def login():
     else:
         # If credentials are invalid
         return jsonify({'message': 'Invalid username or password'}), 401
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
