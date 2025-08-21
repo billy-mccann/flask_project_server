@@ -7,24 +7,24 @@ import authhelper as ah
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
 
+
 @app.route("/house")
 def house():
-    return {
-        "username": "Big House",
-        "location": "Paradise, Earth",
-        "price": 499
-    }
+    return {"username": "Big House", "location": "Paradise, Earth", "price": 499}
 
-@app.route('/post/<int:post_id>')
+
+@app.route("/post/<int:post_id>")
 def show_post(post_id):
     posts = []
     for i in range(post_id):
-        posts.append( {"id" : i+1, "post" : "post " + str(i*13)} )
+        posts.append({"id": i + 1, "post": "post " + str(i * 13)})
     return posts
+
 
 @app.route("/users")
 def users():
@@ -34,6 +34,7 @@ def users():
         user_list.append(asdict(create_random_user()))
     return user_list
 
+
 @app.route("/cells")
 def cells():
     num = randrange(100)
@@ -41,6 +42,7 @@ def cells():
     for i in range(num):
         cellList.append(asdict(create_random_cell(i)))
     return cellList
+
 
 @app.route("/rentals")
 def rentals():
@@ -53,30 +55,44 @@ def rentals():
         return rental_properties
     except MissingTokenError as e:
         print(e)
-        return jsonify({'message': 'Missing token error: no token was found in request headers'}), 401
+        return (
+            jsonify(
+                {
+                    "message": "Missing token error: no token was found in request headers"
+                }
+            ),
+            401,
+        )
     except DecodingError as e:
         print(e)
-        return jsonify({'message': 'Decoding error: An error occurred during token decoding'}), 401
+        return (
+            jsonify(
+                {"message": "Decoding error: An error occurred during token decoding"}
+            ),
+            401,
+        )
     except InvalidTokenError as e:
         print(e)
-        return jsonify({'message': 'Invalid token error: token expired'}), 401
+        return jsonify({"message": "Invalid token error: token expired"}), 401
     except Exception as e:
         print(e)
-        return jsonify({'message': 'Invalid token'}), 401
+        return jsonify({"message": "Invalid token"}), 401
 
-@app.route('/login', methods=['GET'])
+
+@app.route("/login", methods=["GET"])
 def login():
     # Get username and password from the URL parameters
-    username = request.args.get('username')
-    password = request.args.get('password')
+    username = request.args.get("username")
+    password = request.args.get("password")
 
     if ah.is_authorized_user(username, password):
         token = ah.create_auth_token(username)
         # Respond with the token
-        return jsonify({'token': token})
+        return jsonify({"token": token})
     else:
         # If credentials are invalid
-        return jsonify({'message': 'Invalid username or password'}), 401
+        return jsonify({"message": "Invalid username or password"}), 401
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
