@@ -37,7 +37,7 @@ def show_post(post_id):
 def users():
     num = randrange(100)
     user_list = []
-    for i in range(num):
+    for _ in range(num):
         user_list.append(asdict(create_random_user()))
     return user_list
 
@@ -57,7 +57,7 @@ def rentals():
         ah.validate_request(request)
         # Return requested data
         rental_properties = []
-        for i in range(10):
+        for _ in range(10):
             rental_properties.append(asdict(create_random_rental()))
         return rental_properties
     except MissingTokenError as e:
