@@ -3,10 +3,13 @@ This is the base entry point for the flask app
 """
 
 from random import randrange
-from flask import Flask, request, jsonify
 from dataclasses import asdict
+
+from flask import Flask, requst, jsonify
+
 from authhelper import MissingTokenError, DecodingError, InvalidTokenError
 from user import create_random_user, create_random_rental, create_random_cell
+
 import authhelper as ah
 
 app = Flask(__name__)
@@ -42,10 +45,10 @@ def users():
 @app.route("/cells")
 def cells():
     num = randrange(100)
-    cellList = []
+    cell_list = []
     for i in range(num):
-        cellList.append(asdict(create_random_cell(i)))
-    return cellList
+        cell_list.append(asdict(create_random_cell(i)))
+    return cell_list
 
 
 @app.route("/rentals")
