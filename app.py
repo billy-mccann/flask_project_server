@@ -83,7 +83,7 @@ def rentals():
     except InvalidTokenError as e:
         print(e)
         return jsonify({"message": "Invalid token error: token expired"}), 401
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         print(e)
         return jsonify({"message": "Invalid token"}), 401
 
