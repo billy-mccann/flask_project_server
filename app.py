@@ -1,3 +1,7 @@
+"""
+This is the base entry point for the flask app
+"""
+
 from random import randrange
 from flask import Flask, request, jsonify
 from dataclasses import asdict
