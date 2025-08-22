@@ -1,0 +1,5 @@
+# Disable unwanted controls
+[MESSAGES CONTROL]
+disable=missing-module-docstring,
+	missing-function-docstring,
+	missing-class-docstring
