@@ -1,5 +1,8 @@
-import jwt
+# Standard imports
 import datetime
+
+# Third-party imports
+import jwt
 
 
 class ValidationError(Exception):
@@ -54,8 +57,7 @@ SECRET_KEY = "honda_access_virus"
 def is_authorized_user(username, password):
     if authorized_users[username] == password:
         return True
-    else:
-        return False
+    return False
 
 
 # Create a JWT token
