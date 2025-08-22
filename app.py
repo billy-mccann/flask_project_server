@@ -5,7 +5,7 @@ This is the base entry point for the flask app
 from random import randrange
 from dataclasses import asdict
 
-from flask import Flask, requst, jsonify
+from flask import Flask, request, jsonify
 
 from authhelper import MissingTokenError, DecodingError, InvalidTokenError
 from user import create_random_user, create_random_rental, create_random_cell
