@@ -88,17 +88,16 @@ def rentals():
 
 @app.route("/login", methods=["GET"])
 def login():
-    # Get username and password from the URL parameters
     username = request.args.get("username")
     password = request.args.get("password")
 
+    # Valid Credentials
     if ah.is_authorized_user(username, password):
         token = ah.create_auth_token(username)
-        # Respond with the token
         return jsonify({"token": token})
-    else:
-        # If credentials are invalid
-        return jsonify({"message": "Invalid username or password"}), 401
+
+    # Credentials are invalid
+    return jsonify({"message": "Invalid username or password"}), 401
 
 
 if __name__ == "__main__":
