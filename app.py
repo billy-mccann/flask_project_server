@@ -1,5 +1,7 @@
 """
-This is the base entry point for the flask app
+This is the base entry point for the flask app that
+will be used in a docker container to assist in app
+development
 """
 
 from random import randrange
