@@ -43,8 +43,8 @@ def validate_token(token):
             raise InvalidTokenError("Token expired")
         print("valid token received: " + str(token_date))
         return
-    except:
-        raise DecodingError("Decoding token failed")
+    except Exception as exc:
+        raise DecodingError("Decoding token failed") from exc
 
 
 # Authorized users (just a really good database)
